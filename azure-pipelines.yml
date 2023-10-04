@@ -8,7 +8,7 @@ trigger:
   - master
 pool:
   vmImage: "ubuntu-latest"
-container: checkmarx/kics:v1.7.9-debian
+container: gabrielcx/kicstest:latest
 steps:
   # running in CI mode, exporting results to a JSON file and printing the results in stdout
   # KICS should fail the pipeline if results are found
