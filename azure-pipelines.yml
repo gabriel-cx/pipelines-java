@@ -3,17 +3,15 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+
 trigger:
-- main
-
+  - master
 pool:
-  vmImage: ubuntu-latest
-
+  vmImage: "ubuntu-latest"
+container: checkmarx/kics:debian
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  # running in CI mode, exporting results to a JSON file and printing the results in stdout
+  # KICS should fail the pipeline if results are found
+  - script: |
+      /app/bin/kics scan --ci -p ${PWD} -o ${PWD}
+      cat results.json
